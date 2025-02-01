@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
+import Search from "./Search";
 
 const Header = () => {
   return (
@@ -18,7 +19,7 @@ const Header = () => {
     >
       <Logo />
       <Navigation />
-      <div></div>
+      <Search/>
     </header>
   );
 };

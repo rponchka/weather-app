@@ -18,12 +18,12 @@ const TodaysWeatherPage: FC = observer(() => {
   const [forecast, setForecast] = useState<any>(null);
 
   useEffect(() => {
-    fetchWeather(cityStore.city);
+    fetchWeather(cityStore.city);  // Тепер cityStore.city буде відслідковувати зміни
     fetchForecast();
     fetchWeatherInCity("Kyiv", setWeatherInKyiv);
     fetchWeatherInCity("London", setWeatherInLondon);
     fetchWeatherInCity("New York", setWeatherInNewYork);
-  }, []);
+  }, [cityStore.city]);  // Додаємо cityStore.city в залежності useEffect
 
   const fetchWeather = (city: string) => {
     weatherStore
@@ -93,11 +93,11 @@ const TodaysWeatherPage: FC = observer(() => {
       </div>
       <div>
         <div css={css`font-family:montH; color:#ececec; font-size:25px;margin-left:10px;margin-bottom:10px;`}>Weather in popular countries</div>
-      <div css={css`width:100%; display:flex; flex-wrap: wrap;`}>
-        <FavCountry data={weatherInKyiv} />
-        <FavCountry data={weatherInLondon} />
-        <FavCountry data={weatherInNewYork} />
-      </div>
+        <div css={css`width:100%; display:flex; flex-wrap: wrap;`}>
+          <FavCountry data={weatherInKyiv} />
+          <FavCountry data={weatherInLondon} />
+          <FavCountry data={weatherInNewYork} />
+        </div>
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { css } from "@emotion/react";
 import { IWeatherData } from "../types/WeatherTypes";
+import { observer } from "mobx-react-lite";
 
 interface ICurrentWeatherProps {
   data: IWeatherData | null;
 }
 
-const CurrentWeather: FC<ICurrentWeatherProps> = ({ data }) => {
+const CurrentWeather: FC<ICurrentWeatherProps> = observer(({ data }) => {
   if (!data) {
     return <div>Дані не доступні</div>;
   }
@@ -63,6 +64,6 @@ const CurrentWeather: FC<ICurrentWeatherProps> = ({ data }) => {
       <div css={css`font-size:17px; margin:5px 0;`}>Wind speed: {data.current.wind_kph}kph</div>
     </div>
   );
-};
+})
 
 export default CurrentWeather;
