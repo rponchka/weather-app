@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import NavInem from "./NavItem";
-import Circle from "./ui/circle";
+import Circle from "./ui/сircle";
 
 const Navigation = () => {
   return (
@@ -13,11 +13,11 @@ const Navigation = () => {
         cursor: pointer;
       `}
     >
-      <NavInem option="Today's Weather" />
+      <NavInem option="Today's Weather"  route="/"/>
       <Circle />
-      <NavInem option="Weekly Weather" />
+      <NavInem option="Weekly Weather"  route="/forecast"/>
       <Circle />
-      <NavInem option="Wather News" />
+      <NavInem option="Wather News"  route="/weaher-news"/>
     </nav>
   );
 };

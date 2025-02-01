@@ -1,9 +1,9 @@
-interface ICondition{
+interface ICondition {
     text:string;
     icon:string;
 }
 
-interface ICurrent{
+interface ICurrent {
     cloud: number;
     condition: ICondition;
     feelslike_c: number;
