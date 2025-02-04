@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx"
 import { ISearchCity } from "../types/SearchCity"
 
 class SearchCity {
-    cityArray: ISearchCity | ISearchCity[] | null = null
+    cityArray: ISearchCity[] | null = null
     isLoading: boolean = false;
     error: string | null = null
 

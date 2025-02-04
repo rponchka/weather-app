@@ -2,20 +2,35 @@ import { FC, useState } from "react";
 import { css } from "@emotion/react";
 import { cityStore } from "../store/cityStore"; 
 import { observer } from "mobx-react-lite";
+import { searchCity } from "../store/SearchCity";
+import ResultField from "./ResultField";
+import { toJS } from "mobx";
+import { ISearchCity } from "../types/SearchCity";
 
 const Search: FC = observer(() => {
     const [inputValue, setInputValue] = useState<string>(cityStore.city);
+    const [seacrchedCity, setSearchedCity] = useState<ISearchCity[] | []>([]);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
   
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value); 
+      searchCity.fetchCity(event.target.value).then(() => {
+        const cities = toJS(searchCity.cityArray);
+
+        if (cities) {
+          setSearchedCity(cities)
+        }else{
+          setSearchedCity([])
+        }
+      })
     };
   
     const handleButtonClick = () => {
-      cityStore.setCity(inputValue);  // Зміна cityStore
+      cityStore.setCity(inputValue); 
     };
-  
+
     return (
-      <div>
+      <div css={css`position:relative;`}>
         <input
           css={css`
             width: 300px;
@@ -32,6 +47,8 @@ const Search: FC = observer(() => {
           type="text"
           value={inputValue}
           onChange={handleChange}
+          onFocus={() => setIsFocused(true)}
+          // onBlur={() => setIsFocused(false)}
           placeholder="Enter city"
         />
         <button
@@ -53,6 +70,7 @@ const Search: FC = observer(() => {
         >
           Set City
         </button>
+        {isFocused ? <ResultField data={seacrchedCity} setFocus={setIsFocused}/> : '' }
       </div>
     );
   });
