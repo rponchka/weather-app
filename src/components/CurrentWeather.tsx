@@ -55,13 +55,13 @@ const CurrentWeather: FC<ICurrentWeatherProps> = observer(({ data }) => {
         {data.current.condition.text}
       </div>
     <br />
-      <div css={css`font-size:17px; margin:5px 0;`}>Cloud: {data.current.cloud}%</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Temp: {data.current.temp_c}C</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Feels like: {data.current.feelslike_c}C</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Humidity: {data.current.humidity}</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Wind direction: {data.current.wind_dir}</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Rainfall amount: {data.current.precip_mm}mm</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Wind speed: {data.current.wind_kph}kph</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Хмарність: {data.current.cloud}%</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Температура: {data.current.temp_c}C</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Відчувається як: {data.current.feelslike_c}C</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Вологість: {data.current.humidity}</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Напрямок вітру: {data.current.wind_dir}</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Кількість опадів: {data.current.precip_mm}mm</div>
+      <div css={css`font-size:17px; margin:5px 0;`}>Швидкість вітру: {data.current.wind_kph}kph</div>
     </div>
   );
 })

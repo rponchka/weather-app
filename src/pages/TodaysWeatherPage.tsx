@@ -18,12 +18,12 @@ const TodaysWeatherPage: FC = observer(() => {
   const [forecast, setForecast] = useState<any>(null);
 
   useEffect(() => {
-    fetchWeather(cityStore.city);  // Тепер cityStore.city буде відслідковувати зміни
+    fetchWeather(cityStore.city);  
     fetchForecast();
     fetchWeatherInCity("Kyiv", setWeatherInKyiv);
     fetchWeatherInCity("London", setWeatherInLondon);
     fetchWeatherInCity("New York", setWeatherInNewYork);
-  }, [cityStore.city]);  // Додаємо cityStore.city в залежності useEffect
+  }, [cityStore.city]);  
 
   const fetchWeather = (city: string) => {
     weatherStore
