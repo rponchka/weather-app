@@ -93,8 +93,8 @@ const TodaysWeatherPage: FC = observer(() => {
           margin-bottom: 50px;
         `}
       >
-        <CurrentWeather data={weather} />
-        <ForecastSm data={forecast} />
+        {weatherStore.isLoading? 'loading':<CurrentWeather data={weather} />}
+        {weatherStore.isLoading? 'loading':<ForecastSm data={forecast} />}
       </div>
       <div>
         <div
