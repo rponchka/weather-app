@@ -1,7 +1,8 @@
 import { makeAutoObservable } from "mobx";
+import { IForecastData } from "../types/Forecast";
 
 class ForecastStore {
-  weatherData: any = null;
+  weatherData: IForecastData | null = null;
   isLoading: boolean = false;
   error: string = "";
 
@@ -20,7 +21,7 @@ class ForecastStore {
       const response = await fetch(URL);
       if (!response.ok) throw new Error("Failed to fetch data");
 
-      const data = await response.json();
+      const data: IForecastData = await response.json();
       this.weatherData = data;
     } catch (error: any) {
       this.error = error.message;

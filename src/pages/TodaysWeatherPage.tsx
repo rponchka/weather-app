@@ -13,17 +13,21 @@ import FavCountry from "../components/FavCounty";
 const TodaysWeatherPage: FC = observer(() => {
   const [weather, setWeather] = useState<IWeatherData | null>(null);
   const [weatherInKyiv, setWeatherInKyiv] = useState<IWeatherData | null>(null);
-  const [weatherInLondon, setWeatherInLondon] = useState<IWeatherData | null>(null);
-  const [weatherInNewYork, setWeatherInNewYork] = useState<IWeatherData | null>(null);
+  const [weatherInLondon, setWeatherInLondon] = useState<IWeatherData | null>(
+    null
+  );
+  const [weatherInNewYork, setWeatherInNewYork] = useState<IWeatherData | null>(
+    null
+  );
   const [forecast, setForecast] = useState<any>(null);
 
   useEffect(() => {
-    fetchWeather(cityStore.city);  
+    fetchWeather(cityStore.city);
     fetchForecast();
     fetchWeatherInCity("Kyiv", setWeatherInKyiv);
     fetchWeatherInCity("London", setWeatherInLondon);
     fetchWeatherInCity("New York", setWeatherInNewYork);
-  }, [cityStore.city]);  
+  }, [cityStore.city]);
 
   const fetchWeather = (city: string) => {
     weatherStore
@@ -92,8 +96,24 @@ const TodaysWeatherPage: FC = observer(() => {
         <ForecastSm data={forecast} />
       </div>
       <div>
-        <div css={css`font-family:montH; color:#ececec; font-size:25px;margin-left:10px;margin-bottom:10px;`}>Weather in popular countries</div>
-        <div css={css`width:100%; display:flex; flex-wrap: wrap;`}>
+        <div
+          css={css`
+            font-family: montH;
+            color: #ececec;
+            font-size: 25px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+          `}
+        >
+          Weather in popular countries
+        </div>
+        <div
+          css={css`
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+          `}
+        >
           <FavCountry data={weatherInKyiv} />
           <FavCountry data={weatherInLondon} />
           <FavCountry data={weatherInNewYork} />

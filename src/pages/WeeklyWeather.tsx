@@ -7,15 +7,16 @@ import { toJS } from "mobx";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { formatDate } from "../utils/formateDate";
 import { IconTemperature, IconTemperatureCelsius } from "@tabler/icons-react";
+import { Forecast, IForecastData } from "../types/Forecast";
 
 const WeeklyWeather: FC = observer(() => {
-  const [forecast, setForecast] = useState<any>(null);
+  const [data, setData] = useState<IForecastData | null>(null);
+  const [ forecast, setForecast] = useState<Forecast | null>(null)
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
     fetchForecast();
-
-    console.log(forecast);
+    console.log(data);
   }, [cityStore.city]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -27,8 +28,10 @@ const WeeklyWeather: FC = observer(() => {
       .fetchWeather(cityStore.city)
       .then(() => {
         const forecastData = toJS(forecastStore.weatherData);
-        if (forecastData && forecastData.forecast) {
-          setForecast(forecastData.forecast.forecastday); // Перевірте правильність цього шляху
+        if (forecastData) {
+          setData(forecastData);
+          setForecast(forecastData.forecast)
+          console.log(data);
         }
       })
       .catch((error) => {
@@ -74,7 +77,7 @@ const WeeklyWeather: FC = observer(() => {
           fontFamily: "montH",
         }}
       >
-        {forecast.map((day: any, index: number) => (
+        {forecast?.forecastday.map((day: any, index: number) => (
           <Tab
             sx={{ color: "#ececec", fontFamily: "montH" }}
             key={index}
@@ -91,7 +94,7 @@ const WeeklyWeather: FC = observer(() => {
           borderBottomRightRadius: "10px",
         }}
       >
-        {forecast.map(
+        {forecast?.forecastday.map(
           (day: any, index: number) =>
             value === index && (
               <Box
