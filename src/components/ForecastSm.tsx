@@ -2,23 +2,10 @@ import { css } from "@emotion/react";
 import { FC } from "react";
 import List from "./List";
 import { useNavigate } from "react-router-dom";
+import { IForecastData } from "../types/Forecast";
 
 interface IForecast {
-  data: {
-    forecast: {
-      forecastday: {
-        date: string;
-        day: {
-          maxtemp_c: number;
-          mintemp_c: number;
-          condition: {
-            text: string;
-            icon: string;
-          };
-        };
-      }[];
-    };
-  };
+  data: IForecastData | null
 }
 
 const ForecastSm: FC<IForecast> = ({ data }) => {

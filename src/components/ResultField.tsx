@@ -21,6 +21,7 @@ const ResultField: FC<IReasultFieldProps> = ({ data, setFocus }) => {
         max-height: 250px;
         box-sizing: border-box;
         padding: 15px;
+        z-index:2;
       `}
     >
       {data.length === 0 ? (

@@ -9,6 +9,7 @@ import CurrentWeather from "../components/CurrentWeather";
 import { forecastStore } from "../store/forecastStore";
 import ForecastSm from "../components/ForecastSm";
 import FavCountry from "../components/FavCounty";
+import { IForecastData } from "../types/Forecast";
 
 const TodaysWeatherPage: FC = observer(() => {
   const [weather, setWeather] = useState<IWeatherData | null>(null);
@@ -19,7 +20,7 @@ const TodaysWeatherPage: FC = observer(() => {
   const [weatherInNewYork, setWeatherInNewYork] = useState<IWeatherData | null>(
     null
   );
-  const [forecast, setForecast] = useState<any>(null);
+  const [forecast, setForecast] = useState<IForecastData | null>(null);
 
   useEffect(() => {
     fetchWeather(cityStore.city);
