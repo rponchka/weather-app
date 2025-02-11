@@ -1,42 +1,18 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { css } from "@emotion/react";
-import { forecastStore } from "../store/forecastStore";
-import { cityStore } from "../store/cityStore";
-import { toJS } from "mobx";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { formatDate } from "../utils/formateDate";
 import { IconTemperature, IconTemperatureCelsius } from "@tabler/icons-react";
-import { Forecast, IForecastData } from "../types/Forecast";
+import { useWeatherData } from "../hooks/useWeatherData";
 
 const WeeklyWeather: FC = observer(() => {
-  const [data, setData] = useState<IForecastData | null>(null);
-  const [ forecast, setForecast] = useState<Forecast | null>(null)
   const [value, setValue] = useState<number>(0);
+  const {forecastForEveryDay} = useWeatherData()
 
-  useEffect(() => {
-    fetchForecast();
-    console.log(data);
-  }, [cityStore.city]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-
-  const fetchForecast = () => {
-    forecastStore
-      .fetchWeather(cityStore.city)
-      .then(() => {
-        const forecastData = toJS(forecastStore.weatherData);
-        if (forecastData) {
-          setData(forecastData);
-          setForecast(forecastData.forecast)
-          console.log(data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching weather:", error);
-      });
   };
 
   const ifRainOrSnow = (value: number) => {
@@ -48,7 +24,7 @@ const WeeklyWeather: FC = observer(() => {
     }
   }
 
-  if (!forecast) {
+  if (!forecastForEveryDay) {
     return <div>Loading...</div>;
   }
 
@@ -77,7 +53,7 @@ const WeeklyWeather: FC = observer(() => {
           fontFamily: "montH",
         }}
       >
-        {forecast?.forecastday.map((day: any, index: number) => (
+        {forecastForEveryDay?.forecastday.map((day: any, index: number) => (
           <Tab
             sx={{ color: "#ececec", fontFamily: "montH" }}
             key={index}
@@ -94,7 +70,7 @@ const WeeklyWeather: FC = observer(() => {
           borderBottomRightRadius: "10px",
         }}
       >
-        {forecast?.forecastday.map(
+        {forecastForEveryDay?.forecastday.map(
           (day: any, index: number) =>
             value === index && (
               <Box
