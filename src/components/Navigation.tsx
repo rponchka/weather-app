@@ -17,7 +17,7 @@ const Navigation = () => {
       <Circle />
       <NavInem option="Weekly Weather"  route="/forecast"/>
       <Circle />
-      <NavInem option="Wather News"  route="/weaher-news"/>
+      <NavInem option="Weather News"  route="/weather-news"/>
     </nav>
   );
 };
