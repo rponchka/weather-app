@@ -19,22 +19,29 @@ interface IListProps {
 }
 
 const List: FC<IListProps> = ({ data }) => {
+  
+  const listStyle = css`
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    margin: 10px 0;
+  `;
+
   return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: space-between;
-        font-size:25px;
-        margin:10px 0;
-      `}
-    >
+    <div css={listStyle}>
       {formatDate(data.date)}
       <span>
-        {data.day.mintemp_c + 'C '}
+        {data.day.mintemp_c + "C "}
 
-        <span css={css`font-family:arial;`}>/</span>
+        <span
+          css={css`
+            font-family: arial;
+          `}
+        >
+          /
+        </span>
 
-        {data.day.maxtemp_c + 'C'}
+        {data.day.maxtemp_c + "C"}
       </span>
     </div>
   );

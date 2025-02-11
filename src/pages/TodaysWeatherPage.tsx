@@ -1,4 +1,4 @@
-import { FC} from "react";
+import { FC } from "react";
 import { css } from "@emotion/react";
 import { weatherStore } from "../store/weatherStore";
 import { observer } from "mobx-react-lite";
@@ -8,18 +8,32 @@ import FavCountry from "../components/FavCounty";
 import { useWeatherData } from "../hooks/useWeatherData";
 
 const TodaysWeatherPage: FC = observer(() => {
-  const { weather, forecast, weatherInKyiv, weatherInLondon, weatherInNewYork } = useWeatherData();
+  const {
+    weather,
+    forecast,
+    weatherInKyiv,
+    weatherInLondon,
+    weatherInNewYork,
+  } = useWeatherData();
+
+  const containerStyle = css`
+    width: var(--page-width);
+    height: var(--page-height);
+    padding: var(--page-padding);
+    padding-top: 50px;
+    box-sizing: border-box;
+  `;
+
+  const titleStyles = css`
+    font-family:var(--bold-font);
+    color:var(--font-color);
+    font-size: 25px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  `;
 
   return (
-    <div
-      css={css`
-        width: 100%;
-        height: 873px;
-        padding: 0 280px;
-        padding-top: 50px;
-        box-sizing: border-box;
-      `}
-    >
+    <div css={containerStyle}>
       <div
         css={css`
           display: flex;
@@ -30,17 +44,7 @@ const TodaysWeatherPage: FC = observer(() => {
         {weatherStore.isLoading ? "loading" : <ForecastSm data={forecast} />}
       </div>
       <div>
-        <div
-          css={css`
-            font-family: montH;
-            color: #ececec;
-            font-size: 25px;
-            margin-left: 10px;
-            margin-bottom: 10px;
-          `}
-        >
-          Weather in popular countries
-        </div>
+        <div css={titleStyles}>Weather in popular countries</div>
         <div
           css={css`
             width: 100%;

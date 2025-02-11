@@ -2,17 +2,19 @@ import { FC } from "react";
 import { css } from "@emotion/react";
 
 const WeatherNewsPage: FC = () => {
+
+    const stubStyle = css`
+    width: var(--page-width);
+    height: var(--page-height);
+    padding: var(--page-padding);
+    padding-top: 50px;
+    box-sizing: border-box;
+    color:#ececec;
+  `
   return (
-    <div css={css`
-        width: 100%;
-        height: 873px;
-        padding: 0 280px;
-        padding-top: 50px;
-        box-sizing: border-box;
-        color:#ececec;
-      `}>
-        <h1 css={css`font-family:montH;`}>Weather News</h1>
-        <p css={css`font-family:montE;`}>Coming soon...</p>
+    <div css={stubStyle}>
+        <h1 css={css`font-family:var(--bold-font);`}>Weather News</h1>
+        <p css={css`font-family:var(--light-font);`}>Coming soon...</p>
     </div>
   );
 };

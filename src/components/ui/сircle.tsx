@@ -1,13 +1,14 @@
-import { css } from "@emotion/react"
+import { css } from "@emotion/react";
 
 const Circle = () => {
+  const circleStyle = css`
+    width: 5px;
+    height: 5px;
+    background-color:var(--secondary-color);
+    border-radius: 100%;
+  `;
 
-    return(
-        <div css={css`width:5px;height:5px;background-color:#0466C8;border-radius:100%;`}>
+  return <div css={circleStyle}></div>;
+};
 
-        </div>
-    )
-
-}
-
-export default Circle
+export default Circle;

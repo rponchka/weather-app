@@ -1,10 +1,12 @@
-import { css } from "@emotion/react"
-const Logo = () => {
-    return(
-        <div css={css`font-family:montH; color:#0466C8; font-size:35px;`}>
-            CLIMATICA
-        </div>
-    )
-}
+import { css } from "@emotion/react";
 
-export default Logo
+const Logo = () => {
+  const logoStyles = css`
+    font-family: var(--bold-font);
+    color: var(--secondary-color);
+    font-size: 35px;
+  `;
+  return <div css={logoStyles}>CLIMATICA</div>;
+};
+
+export default Logo;

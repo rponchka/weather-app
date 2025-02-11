@@ -8,37 +8,45 @@ import { useWeatherData } from "../hooks/useWeatherData";
 
 const WeeklyWeather: FC = observer(() => {
   const [value, setValue] = useState<number>(0);
-  const {forecastForEveryDay} = useWeatherData()
-
+  const { forecastForEveryDay } = useWeatherData();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   const ifRainOrSnow = (value: number) => {
-    if(value === 0){
-      return "немає"
+    if (value === 0) {
+      return "немає";
+    } else {
+      return "є";
     }
-    else{
-      return "є"
-    }
-  }
+  };
 
   if (!forecastForEveryDay) {
     return <div>Loading...</div>;
   }
 
+  const containerStyle = css`
+    width: var(--page-width);
+    height: var(--page-height);
+    padding: var(--page-padding);
+    padding-top: 50px;
+    box-sizing: border-box;
+    color: var(--font-color);
+  `;
+
+  const typographyStyle = css`
+  font-size: 20px;
+  font-family: var(--light-font);
+`
+
+const typographyTitleStyle = css`
+  font-size: 25px;
+  font-family: var(--bold-font);
+`
+
   return (
-    <div
-      css={css`
-        width: 100%;
-        height: 873px;
-        padding: 0 280px;
-        padding-top: 50px;
-        box-sizing: border-box;
-        color: white;
-      `}
-    >
+    <div css={containerStyle}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -49,13 +57,13 @@ const WeeklyWeather: FC = observer(() => {
           background: "#060606",
           borderTopLeftRadius: "10px",
           borderTopRightRadius: "10px",
-          borderBottom: "1px solid #242424",
+          borderBottom: "1px solid var(--box-bg-color)",
           fontFamily: "montH",
         }}
       >
         {forecastForEveryDay?.forecastday.map((day: any, index: number) => (
           <Tab
-            sx={{ color: "#ececec", fontFamily: "montH" }}
+            sx={{ color: "var(--font-color)", fontFamily: "var(--bold-font)" }}
             key={index}
             label={formatDate(day.date)}
           />
@@ -65,7 +73,7 @@ const WeeklyWeather: FC = observer(() => {
       <Box
         sx={{
           padding: 3,
-          background: "#060606",
+          background: "var(--dark-box-bg-color)",
           borderBottomLeftRadius: "10px",
           borderBottomRightRadius: "10px",
         }}
@@ -76,7 +84,7 @@ const WeeklyWeather: FC = observer(() => {
               <Box
                 key={index}
                 css={css`
-                  font-family: montE;
+                  font-family: var(--light-font);
                   display: flex;
                   justify-content: space-between;
                 `}
@@ -96,31 +104,24 @@ const WeeklyWeather: FC = observer(() => {
                       align-items: center;
                     `}
                   >
-                    <Typography
-                      css={css`
-                        font-family: montH;
-                        font-size: 25px;
-                      `}
-                    >
+                    <Typography css={typographyTitleStyle}>
                       Денна температура
                     </Typography>
                     <IconTemperature stroke={1.5} width={30} height={30} />
                   </div>
+                  
                   <div
                     css={css`
-                      font-family: montH;
+                      font-family: var(--bold-font);
                       font-size: 30px;
                       display: flex;
                       align-items: center;
                     `}
                   >
                     {day.day.avgtemp_c}
-                    <IconTemperatureCelsius
-                      stroke={2.5}
-                      width={32}
-                      height={32}
-                    />
+                    <IconTemperatureCelsius stroke={2.5} width={32}  height={32} />
                   </div>
+
                   <div
                     css={css`
                       font-size: 24px;
@@ -131,6 +132,7 @@ const WeeklyWeather: FC = observer(() => {
                     Мінімальна температура: {day.day.mintemp_c}
                     <IconTemperatureCelsius scale={0.5} />
                   </div>
+
                   <div
                     css={css`
                       font-size: 24px;
@@ -153,41 +155,28 @@ const WeeklyWeather: FC = observer(() => {
                     height: 170px;
                   `}
                 >
-                  <Typography
-                    css={css`
-                      font-size: 25px;
-                      font-family: montH;
-                    `}
-                  >
+                  <Typography css={typographyTitleStyle}>
                     Погодні умови
                   </Typography>
-                  <Typography
-                    css={css`
-                      font-size: 20px;
-                      font-family: montE;
-                    `}
-                  >
+
+                  <Typography css={typographyStyle}>
                     Максимальна швидкість вітру: {day.day.maxwind_kph}км
-                    <span css={css`font-family:arial;`}>/</span>г
+                    <span  css={css`font-family: arial;`}>/</span>
                   </Typography>
-                  <Typography css={css`
-                      font-size: 20px;
-                      font-family: montE;
-                    `}>
+
+                  <Typography css={typographyStyle}>
                     Загальна кількість опадів: {day.day.totalprecip_mm} mm
                   </Typography>
-                  <Typography css={css`
-                      font-size: 20px;
-                      font-family: montE;
-                    `}>
+
+                  <Typography css={typographyStyle}>
                     Вірогідність дощу {ifRainOrSnow(day.day.daily_will_it_rain)}
                   </Typography>
-                  <Typography css={css`
-                      font-size: 20px;
-                      font-family: montE;
-                    `}>
-                    Вірогідність опадів в виді снігу {ifRainOrSnow(day.day.daily_will_it_rain)}
+
+                  <Typography css={typographyStyle}>
+                    Вірогідність опадів в виді снігу{" "}
+                    {ifRainOrSnow(day.day.daily_will_it_rain)}
                   </Typography>
+
                 </Box>
               </Box>
             )

@@ -12,18 +12,22 @@ const CurrentWeather: FC<ICurrentWeatherProps> = observer(({ data }) => {
     return <div>Дані не доступні</div>;
   }
 
+  const containerStyle = css`
+  background-color:var(--dark-box-bg-color);
+  width: 750px;
+  height: 350px;
+  border-radius: 25px;
+  padding: 25px;
+  box-sizing: border-box;
+  color:var(--font-color);
+  font-family:var(--light-font);
+`;
+
+const listStyle = css`font-size:17px; margin:5px 0;`;
+
   return (
     <div
-      css={css`
-        background-color: #060606;
-        width: 750px;
-        height: 350px;
-        border-radius: 25px;
-        padding: 25px;
-        box-sizing: border-box;
-        color: #ececec;
-        font-family: MontE;
-      `}
+      css={containerStyle}
     >
       <div>
         <span
@@ -55,13 +59,13 @@ const CurrentWeather: FC<ICurrentWeatherProps> = observer(({ data }) => {
         {data.current.condition.text}
       </div>
     <br />
-      <div css={css`font-size:17px; margin:5px 0;`}>Хмарність: {data.current.cloud}%</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Температура: {data.current.temp_c}C</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Відчувається як: {data.current.feelslike_c}C</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Вологість: {data.current.humidity}</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Напрямок вітру: {data.current.wind_dir}</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Кількість опадів: {data.current.precip_mm}mm</div>
-      <div css={css`font-size:17px; margin:5px 0;`}>Швидкість вітру: {data.current.wind_kph}kph</div>
+      <div css={listStyle}>Хмарність: {data.current.cloud}%</div>
+      <div css={listStyle}>Температура: {data.current.temp_c}C</div>
+      <div css={listStyle}>Відчувається як: {data.current.feelslike_c}C</div>
+      <div css={listStyle}>Вологість: {data.current.humidity}</div>
+      <div css={listStyle}>Напрямок вітру: {data.current.wind_dir}</div>
+      <div css={listStyle}>Кількість опадів: {data.current.precip_mm}mm</div>
+      <div css={listStyle}>Швидкість вітру: {data.current.wind_kph}kph</div>
     </div>
   );
 })
