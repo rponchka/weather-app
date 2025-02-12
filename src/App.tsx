@@ -5,8 +5,18 @@ import TodaysWeatherPage from "./pages/TodaysWeatherPage";
 import WeeklyWeather from "./pages/WeeklyWeather";
 import WeatherNewsPage from "./pages/WeatherNewsPage";
 import { globalStyles } from "./styles/variables";
+import { useEffect } from "react";
+import { forecastStore } from "./store/forecastStore";
+import { cityStore } from "./store/cityStore";
+import { weatherStore } from "./store/weatherStore";
 
 const App = () => {
+
+  // useEffect(() => {
+  //   forecastStore.fetchWeather(cityStore.city)
+  //   weatherStore.fetchWeather(cityStore.city)
+  // },[cityStore.city])
+
   const containerStyle = css`
     width: 100%;
     height: 100vh;
@@ -26,6 +36,6 @@ const App = () => {
       </div>
     </Router>
   );
-};
+}
 
 export default App;

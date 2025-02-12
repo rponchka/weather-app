@@ -8,8 +8,9 @@ interface ICurrentWeatherProps {
 }
 
 const CurrentWeather: FC<ICurrentWeatherProps> = observer(({ data }) => {
-  if (!data) {
-    return <div>Дані не доступні</div>;
+
+  if (data === null) {
+    return <div>Loading</div>;
   }
 
   const containerStyle = css`

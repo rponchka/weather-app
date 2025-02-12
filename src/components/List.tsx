@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { FC } from "react";
 import { formatDate } from "../utils/formateDate";
+import { observer } from "mobx-react-lite";
 
 interface IForecast {
   date: string;
@@ -18,7 +19,7 @@ interface IListProps {
   data: IForecast;
 }
 
-const List: FC<IListProps> = ({ data }) => {
+const List: FC<IListProps> = observer(({ data }) => {
   
   const listStyle = css`
     display: flex;
@@ -45,6 +46,6 @@ const List: FC<IListProps> = ({ data }) => {
       </span>
     </div>
   );
-};
+})
 
 export default List;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { css } from "@emotion/react";
 import { weatherStore } from "../store/weatherStore";
 import { observer } from "mobx-react-lite";
@@ -6,15 +6,20 @@ import CurrentWeather from "../components/CurrentWeather";
 import ForecastSm from "../components/ForecastSm";
 import FavCountry from "../components/FavCounty";
 import { useWeatherData } from "../hooks/useWeatherData";
+import { forecastStore } from "../store/forecastStore";
+import { cityStore } from "../store/cityStore";
 
 const TodaysWeatherPage: FC = observer(() => {
   const {
-    weather,
-    forecast,
     weatherInKyiv,
     weatherInLondon,
     weatherInNewYork,
   } = useWeatherData();
+
+    useEffect(() => {
+      forecastStore.fetchWeather(cityStore.city)
+      weatherStore.fetchWeather(cityStore.city)
+    },[cityStore.city])
 
   const containerStyle = css`
     width: var(--page-width);
@@ -40,8 +45,8 @@ const TodaysWeatherPage: FC = observer(() => {
           margin-bottom: 50px;
         `}
       >
-        {weatherStore.isLoading ? "loading" : <CurrentWeather data={weather} />}
-        {weatherStore.isLoading ? "loading" : <ForecastSm data={forecast} />}
+        {weatherStore.isLoading ? "loading" : <CurrentWeather data={weatherStore.weatherData} />}
+        {weatherStore.isLoading ? "loading" : <ForecastSm data={forecastStore.weatherData} />}
       </div>
       <div>
         <div css={titleStyles}>Weather in popular countries</div>

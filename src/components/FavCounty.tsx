@@ -13,7 +13,7 @@ const FavCountry: FC<ICountryDate> = ({ data }) => {
 
   const containerStyle = css`
     color: var(--font-color);
-    background-color:(--dark-box-bg-color);
+    background-color:var(--dark-box-bg-color);
     width: 250px;
     height: 100px;
     box-sizing: border-box;

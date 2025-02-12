@@ -1,18 +1,22 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { css } from "@emotion/react";
 import { Tabs, Tab, Box, Typography } from "@mui/material";
 import { formatDate } from "../utils/formateDate";
 import { IconTemperature, IconTemperatureCelsius } from "@tabler/icons-react";
-import { useWeatherData } from "../hooks/useWeatherData";
+import { forecastStore } from "../store/forecastStore";
+import { cityStore } from "../store/cityStore";
 
 const WeeklyWeather: FC = observer(() => {
   const [value, setValue] = useState<number>(0);
-  const { forecastForEveryDay } = useWeatherData();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+        forecastStore.fetchWeather(cityStore.city)
+  },[cityStore.city])
 
   const ifRainOrSnow = (value: number) => {
     if (value === 0) {
@@ -22,7 +26,7 @@ const WeeklyWeather: FC = observer(() => {
     }
   };
 
-  if (!forecastForEveryDay) {
+  if (forecastStore.isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -61,7 +65,7 @@ const typographyTitleStyle = css`
           fontFamily: "montH",
         }}
       >
-        {forecastForEveryDay?.forecastday.map((day: any, index: number) => (
+        {forecastStore.weatherData?.forecast.forecastday.map((day: any, index: number) => (
           <Tab
             sx={{ color: "var(--font-color)", fontFamily: "var(--bold-font)" }}
             key={index}
@@ -78,7 +82,7 @@ const typographyTitleStyle = css`
           borderBottomRightRadius: "10px",
         }}
       >
-        {forecastForEveryDay?.forecastday.map(
+        {forecastStore.weatherData?.forecast.forecastday.map(
           (day: any, index: number) =>
             value === index && (
               <Box

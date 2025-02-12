@@ -3,19 +3,20 @@ import { FC } from "react";
 import List from "./List";
 import { useNavigate } from "react-router-dom";
 import { IForecastData } from "../types/Forecast";
+import { observer } from "mobx-react-lite";
 
 interface IForecast {
   data: IForecastData | null;
 }
 
-const ForecastSm: FC<IForecast> = ({ data }) => {
+const ForecastSm: FC<IForecast> = observer(({ data }) => {
   const naviagtion = useNavigate();
 
   const handleClick = (): void => {
     naviagtion("/forecast");
   };
 
-  if (!data || !data.forecast) {
+  if (!data) {
     return <div>Завантаження...</div>;
   }
 
@@ -72,11 +73,11 @@ const ForecastSm: FC<IForecast> = ({ data }) => {
         <button css={buttonStyle}>Show more</button>
       </div>
 
-      {data.forecast.forecastday.map((item, index: number) => {
+      {data?.forecast.forecastday.map((item, index: number) => {
         return <List key={index} data={item} />;
       })}
     </div>
   );
-};
+})
 
 export default ForecastSm;

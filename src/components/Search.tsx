@@ -4,28 +4,18 @@ import { cityStore } from "../store/cityStore";
 import { observer } from "mobx-react-lite";
 import { searchCity } from "../store/SearchCity";
 import ResultField from "./ResultField";
-import { toJS } from "mobx";
-import { ISearchCity } from "../types/SearchCity";
 
 const Search: FC = observer(() => {
-  const [inputValue, setInputValue] = useState<string>(cityStore.city);
-  const [seacrchedCity, setSearchedCity] = useState<ISearchCity[] | []>([]);
+  const [inputValue, setInputValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
-    searchCity.fetchCity(event.target.value).then(() => {
-      const cities = toJS(searchCity.cityArray);
-      if (cities) {
-        setSearchedCity(cities);
-      } else {
-        setSearchedCity([]);
-      }
-    });
+    searchCity.fetchCity(event.target.value); 
   };
 
   const handleButtonClick = () => {
-    cityStore.setCity(inputValue);
+    cityStore.setCity(inputValue); 
   };
 
   const inputStyles = css`
@@ -70,10 +60,8 @@ const Search: FC = observer(() => {
       >
         Set City
       </button>
-      {isFocused ? (
-        <ResultField data={seacrchedCity} setFocus={setIsFocused} />
-      ) : (
-        ""
+      {isFocused && searchCity.cityArray && searchCity.cityArray.length > 0 && (
+        <ResultField data={searchCity.cityArray} setFocus={setIsFocused} />
       )}
     </div>
   );
